@@ -1,0 +1,15 @@
+[Unit]
+Description=ZeroTier Router Setup
+Requires=zerotier-one.service
+After=network-online.target zerotier-one.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/zt-router.sh
+RemainAfterExit=true
+TimeoutStartSec=60
+ExecStartPre=/bin/bash -c 'until pgrep zerotier-one > /dev/null && zerotier-cli status | grep -q ONLINE; do echo "⏳ Waiting for ZeroTier to be ONLINE..."; sleep 2; done'
+
+[Install]
+WantedBy=multi-user.target

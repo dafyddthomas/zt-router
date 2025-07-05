@@ -1,0 +1,9 @@
+Package: zt-router
+Version: 1.0
+Section: net
+Priority: optional
+Architecture: all
+Depends: iptables, iptables-persistent, zerotier-one
+Maintainer: Your Name <you@example.com>
+Description: ZeroTier LAN router for Raspberry Pi
+ Provides NAT routing between LAN subnets and a ZeroTier virtual network.
