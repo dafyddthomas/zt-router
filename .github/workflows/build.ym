@@ -1,0 +1,36 @@
+name: Build .deb Package
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up build structure
+        run: |
+          mkdir -p build/DEBIAN
+          cp debian/control build/DEBIAN/control
+          cp debian/postinst build/DEBIAN/postinst
+          chmod 0755 build/DEBIAN/postinst
+          mkdir -p build/etc
+          cp etc/zt-router.conf build/etc/
+          mkdir -p build/usr/local/bin
+          cp usr/local/bin/zt-router.sh build/usr/local/bin/
+          mkdir -p build/etc/systemd/system
+          cp debian/zt-router.service build/etc/systemd/system/
+
+      - name: Build .deb package
+        run: |
+          dpkg-deb --build build zt-router_1.0_all.deb
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: zt-router-deb
+          path: zt-router_1.0_all.deb
