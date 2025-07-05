@@ -1,5 +1,11 @@
 #!/bin/bash
 set -e
+
+if [ ! -f /etc/zt-router.conf ]; then
+    install -Dm644 /usr/share/doc/zt-router/examples/zt-router.conf /etc/zt-router.conf
+    echo "Edit /etc/zt-router.conf before starting the service."
+fi
+
 systemctl daemon-reexec
 systemctl daemon-reload
 systemctl enable zt-router.service
