@@ -15,14 +15,11 @@ ZeroTier router service for Raspberry Pi and Debian-based systems.
 ```bash
 sudo apt install ./zt-router_1.0_all.deb
 ```
-## Important
-Make sure it works by 
+## Post-installation
+The installer places a template configuration at `/etc/zt-router.conf` if one
+is not already present. Edit this file to match your network setup before
+starting the service:
 
 ```bash
-sudo chmod +x /usr/local/bin/zt-router.sh
-```
-and remember to edit config include if name in your config file 
-
-```
-vim /etc/zt-router.conf
+sudo nano /etc/zt-router.conf
 ```
